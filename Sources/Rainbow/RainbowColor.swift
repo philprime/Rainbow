@@ -9,9 +9,9 @@
 #if os(iOS)
 import UIKit
 
-typealias RainbowColor = UIColor
+public typealias RainbowColor = UIColor
 #elseif os(macOS)
 import AppKit
 
-typealias RainbowColor = NSColor
+public typealias RainbowColor = NSColor
 #endif
