@@ -8,6 +8,7 @@
 
 import CoreGraphics
 
+/// Utility to parse color hex values into colors
 internal class RainbowParsingUtils {
 
     internal static func parseHexLength3(hexValue: CUnsignedLongLong) -> RawColor {

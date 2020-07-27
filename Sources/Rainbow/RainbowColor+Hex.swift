@@ -9,8 +9,20 @@
 import Foundation
 import CoreGraphics
 
+/// Add heaxdecimal initialisation to `RainbowColor`
 extension RainbowColor {
 
+    /// Parses the given 64 bits number, supporting 3, 4, 6 and 8 hexadecimal numbers.
+    ///
+    /// Supported formats:
+    /// - `0x123`
+    /// - `0x123f`
+    /// - `0x112233`
+    /// - `0x112233cc`
+    ///
+    /// If the given value is greater than `0xFFFFFFFF`, `nil` is returned
+    ///
+    /// - Parameter hex: Alphanumeric RGBA color
     public convenience init?(hex: UInt64) {
         var raw: RawColor
 
@@ -29,6 +41,17 @@ extension RainbowColor {
         self.init(raw: raw)
     }
 
+    /// Parses the given alphanumerical string, support 3, 4, 6 and 8 characters string, optionally prefixed by an hashtag.
+    ///
+    /// Supported formats:
+    /// - `#123`
+    /// - `#123f`
+    /// - `#112233`
+    /// - `#112233cc`
+    ///
+    /// If none of the formats fit, or the string contains an invalid character, `nil` is returned.
+    ///
+    /// - Parameter hex: Alphanumeric RGBA color string
     public convenience init?(hex: String) {
         let hexString = hex.starts(with: "#") ? String(hex.dropFirst()) : hex
 
@@ -57,10 +80,16 @@ extension RainbowColor {
         self.init(raw: raw)
     }
 
+    /// Creates a new instance of RainbowColor from the given raw color
+    /// - Parameter raw: Raw Color holding RGBA values
     private convenience init(raw: RawColor) {
         self.init(red: raw.red, green: raw.green, blue: raw.blue, alpha: raw.alpha)
     }
 
+    /// Returns the hexadecimal representation of the color.
+    ///
+    /// If the color has no alpha component, it will return a 6 letter string with a leading hash-tag, e.g. `#123456`.
+    /// If the alpha component is set, it will return a 8 letter string with a leading hash-tag, e.g. `#123456ab`
     public var hex: String {
         var red: CGFloat = 0
         var green: CGFloat = 0

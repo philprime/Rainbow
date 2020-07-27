@@ -9,9 +9,11 @@
 #if os(iOS)
 import UIKit
 
+/// On iOS the used implementation is `UIColor` from UIKit
 public typealias RainbowColor = UIColor
 #elseif os(macOS)
 import AppKit
 
+/// On macos the used implementation is `NSColor` from AppKit
 public typealias RainbowColor = NSColor
 #endif
