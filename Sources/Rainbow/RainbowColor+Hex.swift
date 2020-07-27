@@ -70,7 +70,9 @@ extension RainbowColor {
         var b: CGFloat = 0
         var a: CGFloat = 0
 
-        getRed(&r, green: &g, blue: &b, alpha: &a)
+        if let c = usingColorSpace(.extendedSRGB) {
+            c.getRed(&r, green: &g, blue: &b, alpha: &a)
+        }
 
         var rgb = 0
         let r_i = (Int)(r * 0xFF)
