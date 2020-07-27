@@ -12,33 +12,25 @@ import CoreGraphics
 extension RainbowColor {
 
     public convenience init?(hex: UInt64) {
-        var r: CGFloat = 0.0
-        var g: CGFloat = 0.0
-        var b: CGFloat = 0.0
-        var a: CGFloat = 1.0
+        var raw: RawColor
 
         if hex <= 0xFFF {
-            (r, g, b) = RainbowParsingUtils.parseHexLength3(hexValue: hex)
+            raw = RainbowParsingUtils.parseHexLength3(hexValue: hex)
         } else if hex <= 0xFFFF {
-            (r, g, b, a) = RainbowParsingUtils.parseHexLength4(hexValue: hex)
+            raw = RainbowParsingUtils.parseHexLength4(hexValue: hex)
         } else if hex <= 0xFFFFFF {
-            (r, g, b) = RainbowParsingUtils.parseHexLength6(hexValue: hex)
+            raw = RainbowParsingUtils.parseHexLength6(hexValue: hex)
         } else if hex <= 0xFFFFFFFF {
-            (r, g, b, a) = RainbowParsingUtils.parseHexLength8(hexValue: hex)
+            raw = RainbowParsingUtils.parseHexLength8(hexValue: hex)
         } else {
             return nil
         }
 
-        self.init(red: r, green: g, blue: b, alpha: a)
+        self.init(raw: raw)
     }
 
     public convenience init?(hex: String) {
         let hexString = hex.starts(with: "#") ? String(hex.dropFirst()) : hex
-
-        var r: CGFloat = 0.0
-        var g: CGFloat = 0.0
-        var b: CGFloat = 0.0
-        var a: CGFloat = 1.0
 
         let scanner = Scanner(string: hexString)
         var hexValue: CUnsignedLongLong = 0
@@ -48,49 +40,54 @@ extension RainbowColor {
         }
         let length = hexString.count
 
+        var raw: RawColor
         switch length {
         case 3:
-            (r, g, b) = RainbowParsingUtils.parseHexLength3(hexValue: hexValue)
+            raw = RainbowParsingUtils.parseHexLength3(hexValue: hexValue)
         case 4:
-            (r, g, b, a) = RainbowParsingUtils.parseHexLength4(hexValue: hexValue)
+            raw = RainbowParsingUtils.parseHexLength4(hexValue: hexValue)
         case 6:
-            (r, g, b) = RainbowParsingUtils.parseHexLength6(hexValue: hexValue)
+            raw = RainbowParsingUtils.parseHexLength6(hexValue: hexValue)
         case 8:
-            (r, g, b, a) = RainbowParsingUtils.parseHexLength8(hexValue: hexValue)
+            raw = RainbowParsingUtils.parseHexLength8(hexValue: hexValue)
         default:
             return nil
         }
 
-        self.init(red: r, green: g, blue: b, alpha: a)
+        self.init(raw: raw)
+    }
+
+    private convenience init(raw: RawColor) {
+        self.init(red: raw.red, green: raw.green, blue: raw.blue, alpha: raw.alpha)
     }
 
     public var hex: String {
-        var r: CGFloat = 0
-        var g: CGFloat = 0
-        var b: CGFloat = 0
-        var a: CGFloat = 0
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
 
-        if let c = usingColorSpace(.extendedSRGB) {
-            c.getRed(&r, green: &g, blue: &b, alpha: &a)
+        if let color = usingColorSpace(.extendedSRGB) {
+            color.getRed(&r, green: &g, blue: &b, alpha: &a)
         }
 
         var rgb = 0
-        let r_i = (Int)(r * 0xFF)
-        let g_i = (Int)(g * 0xFF)
-        let b_i = (Int)(b * 0xFF)
-        let a_i = (Int)(a * 0xFF)
+        let redI = (Int)(r * 0xFF)
+        let greenI = (Int)(g * 0xFF)
+        let blueI = (Int)(b * 0xFF)
+        let alphaI = (Int)(a * 0xFF)
 
         if a == 1.0 {
-            rgb = r_i << 16
-            rgb |= g_i << 8
-            rgb |= b_i << 0
+            rgb = redI << 16
+            rgb |= greenI << 8
+            rgb |= blueI << 0
 
             return String(format: "#%06x", rgb)
         } else {
-            rgb = r_i << 24
-            rgb |= g_i << 16
-            rgb |= b_i << 8
-            rgb |= a_i << 0
+            rgb = redI << 24
+            rgb |= greenI << 16
+            rgb |= blueI << 8
+            rgb |= alphaI << 0
 
             return String(format: "#%08x", rgb)
         }
