@@ -68,16 +68,16 @@ extension RainbowColor {
         var alpha: CGFloat = 0
 
         if let color = usingColorSpace(.extendedSRGB) {
-            color.getRed(&r, green: &g, blue: &b, alpha: &a)
+            color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
         }
 
         var rgb = 0
-        let redI = (Int)(r * 0xFF)
-        let greenI = (Int)(g * 0xFF)
-        let blueI = (Int)(b * 0xFF)
-        let alphaI = (Int)(a * 0xFF)
+        let redI = (Int)(red * 0xFF)
+        let greenI = (Int)(green * 0xFF)
+        let blueI = (Int)(blue * 0xFF)
+        let alphaI = (Int)(alpha * 0xFF)
 
-        if a == 1.0 {
+        if alpha == 1.0 {
             rgb = redI << 16
             rgb |= greenI << 8
             rgb |= blueI << 0
