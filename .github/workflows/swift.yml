@@ -19,7 +19,7 @@ jobs:
       - name: Generate Code Coverage
         run: |
           xcrun llvm-cov export \
-            .build/debug/CabinetPackageTests.xctest/Contents/MacOS/CabinetPackageTests \
+            .build/debug/RainbowPackageTests.xctest/Contents/MacOS/RainbowPackageTests \
             -instr-profile .build/debug/codecov/default.profdata \
             --format="lcov" \
             --ignore-filename-regex "\\.build" \
@@ -27,7 +27,7 @@ jobs:
       - name: Upload Code Coverage
         run: |  
           bash <(curl -s https://codecov.io/bash) \
-            -J 'Cabinet' \
+            -J 'Rainbow' \
             -G info.lcov
   
   swiftlint:
