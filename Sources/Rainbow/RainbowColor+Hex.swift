@@ -96,9 +96,13 @@ extension RainbowColor {
         var blue: CGFloat = 0
         var alpha: CGFloat = 0
 
+        #if canImport(AppKit)
         if let color = usingColorSpace(.extendedSRGB) {
             color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
         }
+        #elseif canImport(UIKit)
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        #endif
 
         var rgb = 0
         let redI = (Int)(red * 0xFF)
