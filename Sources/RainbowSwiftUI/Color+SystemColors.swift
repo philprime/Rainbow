@@ -1,8 +1,11 @@
-#if canImport(SwiftUI)
-import SwiftUI
 #if canImport(UIKit)
 import UIKit
+#elseif canImport(AppKit)
+import AppKit
 #endif
+
+#if canImport(SwiftUI)
+import SwiftUI
 
 @available(iOS 13.0, OSX 10.15, *)
 extension Color {
