@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "Rainbow", targets: ["Rainbow", "RainbowSwiftUI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Quick/Quick", .upToNextMajor(from: "2.2.0")),
+        .package(url: "https://github.com/Quick/Quick", .upToNextMajor(from: "v2.2.1")),
         .package(url: "https://github.com/Quick/Nimble",  .upToNextMajor(from: "8.0.7")),
     ],
     targets: [
