@@ -13,6 +13,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "Rainbow"),
-        .target(name: "RainbowSwiftUI")
+        .target(name: "RainbowSwiftUI"),
+        //dev .testTarget(name: "RainbowTests", dependencies: ["Rainbow"]),
     ]
 )
