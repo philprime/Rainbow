@@ -2,6 +2,7 @@ import SwiftUI
 import XCTest
 @testable import RainbowSwiftUI
 
+@available(macOS 12.0, *)
 class Color_LuminanceTests: XCTestCase {
 
     func testLuminance_dynamicColor_shouldNotReturnLuminance() {
