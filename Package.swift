@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.6
 
 import PackageDescription
 
@@ -14,6 +14,11 @@ let package = Package(
     targets: [
         .target(name: "Rainbow"),
         .target(name: "RainbowSwiftUI"),
-        //dev .testTarget(name: "RainbowTests", dependencies: ["Rainbow"]),
+        .testTarget(name: "RainbowTests", dependencies: ["Rainbow"], resources: [
+            .process("Resources"),
+        ]),
+        .testTarget(name: "RainbowSwiftUITests", dependencies: ["RainbowSwiftUI"], resources: [
+            .process("Resources"),
+        ]),
     ]
 )

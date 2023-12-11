@@ -3,15 +3,14 @@
 //  Rainbow
 //
 //  Created by Philip Niedertscheider on 27.06.2020.
-//  Copyright © 2020 Philip Niedertscheider. All rights reserved.
+//  Copyright © 2023 Philip Niedertscheider <opensource@philprime.dev>. All rights reserved.
 //
 
-import Foundation
 import CoreGraphics
+import Foundation
 
 /// Add heaxdecimal initialisation to `RainbowColor`
-extension RainbowColor {
-
+public extension RainbowColor {
     /// Parses the given 64 bits number, supporting 3, 4, 6 and 8 hexadecimal numbers.
     ///
     /// Supported formats:
@@ -23,7 +22,7 @@ extension RainbowColor {
     /// If the given value is greater than `0xFFFFFFFF`, `nil` is returned
     ///
     /// - Parameter hex: Alphanumeric RGBA color
-    public convenience init?(hex: UInt64) {
+    convenience init?(hex: UInt64) {
         var raw: RawColor
 
         if hex <= 0xFFF {
@@ -32,7 +31,7 @@ extension RainbowColor {
             raw = RainbowParsingUtils.parseHexLength4(hexValue: hex)
         } else if hex <= 0xFFFFFF {
             raw = RainbowParsingUtils.parseHexLength6(hexValue: hex)
-        } else if hex <= 0xFFFFFFFF {
+        } else if hex <= 0xFFFF_FFFF {
             raw = RainbowParsingUtils.parseHexLength8(hexValue: hex)
         } else {
             return nil
@@ -52,7 +51,7 @@ extension RainbowColor {
     /// If none of the formats fit, or the string contains an invalid character, `nil` is returned.
     ///
     /// - Parameter hex: Alphanumeric RGBA color string
-    public convenience init?(hex: String) {
+    convenience init?(hex: String) {
         let hexString = hex.starts(with: "#") ? String(hex.dropFirst()) : hex
 
         let scanner = Scanner(string: hexString)
@@ -90,25 +89,25 @@ extension RainbowColor {
     ///
     /// If the color has no alpha component, it will return a 6 letter string with a leading hash-tag, e.g. `#123456`.
     /// If the alpha component is set, it will return a 8 letter string with a leading hash-tag, e.g. `#123456ab`
-    public var hex: String {
+    var hex: String {
         var red: CGFloat = 0
         var green: CGFloat = 0
         var blue: CGFloat = 0
         var alpha: CGFloat = 0
 
         #if canImport(AppKit)
-        if let color = usingColorSpace(.extendedSRGB) {
-            color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        }
+            if let color = usingColorSpace(.extendedSRGB) {
+                color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+            }
         #elseif canImport(UIKit)
-        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+            getRed(&red, green: &green, blue: &blue, alpha: &alpha)
         #endif
 
         var rgb = 0
-        let redI = (Int)(red * 0xFF)
-        let greenI = (Int)(green * 0xFF)
-        let blueI = (Int)(blue * 0xFF)
-        let alphaI = (Int)(alpha * 0xFF)
+        let redI = Int(red * 0xFF)
+        let greenI = Int(green * 0xFF)
+        let blueI = Int(blue * 0xFF)
+        let alphaI = Int(alpha * 0xFF)
 
         if alpha == 1.0 {
             rgb = redI << 16
