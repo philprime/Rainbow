@@ -40,7 +40,9 @@ public extension RainbowColor {
         self.init(raw: raw)
     }
 
-    /// Parses the given alphanumerical string, support 3, 4, 6 and 8 characters string, optionally prefixed by an hashtag.
+    /// Parses the given alphanumerical string.
+    ///
+    /// Supports 3, 4, 6 and 8 characters string, optionally prefixed by an hashtag.
     ///
     /// Supported formats:
     /// - `#123`
