@@ -3,7 +3,7 @@
 //  Rainbow
 //
 //  Created by Philip Niedertscheider on 04.03.2021.
-//  Copyright © 2023 Philip Niedertscheider <opensource@philprime.dev>. All rights reserved.
+//  Copyright © 2023 Philip Niedertscheider<opensource@philprime.dev>. All rights reserved.
 //
 
 #if canImport(UIKit)
