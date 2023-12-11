@@ -3,7 +3,7 @@
 //  Rainbow
 //
 //  Created by Philip Niedertscheider on 27.06.2020.
-//  Copyright © 2020 Philip Niedertscheider. All rights reserved.
+//  Copyright © 2023 Philip Niedertscheider<opensource@philprime.dev>. All rights reserved.
 //
 
 import CoreGraphics
