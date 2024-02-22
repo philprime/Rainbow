@@ -95,3 +95,9 @@ iOSInjectionProject/
 # Ruby & Bundler
 vendor
 .bundle
+
+# Test Coverage
+*.lcov
+test_output
+*.log
+*.xcresult

@@ -6,32 +6,117 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   run-macos:
     runs-on: macos-latest
-
     steps:
       - uses: actions/checkout@v4
-      - name: Enable development dependencies
+      - # Setup testing
+        name: Enable development dependencies
         run: |
           sed -i.bak "s/\/\/dev//g" Package.swift
-      - name: Build
-        run: swift build
-      - name: Run tests
-        run: swift test --enable-code-coverage
-      - name: Generate Code Coverage
+
+      - # Run Tests macOS
+        name: Run Tests macOS
         run: |
+          set -o pipefail && \
+          env NSUnbufferedIO=YES \
+          xcodebuild -workspace . \
+            -scheme "Rainbow" \
+            -destination "platform=macOS" \
+            -enableCodeCoverage YES \
+            -derivedDataPath /tmp/DerivedData \
+            -resultBundlePath test_output \
+            CODE_SIGNING_ALLOWED="NO" \
+            test 2>&1 | tee test-macOS.log | xcbeautify
+
+      - name: Upload test log file on error
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-macOS.log
+          path: test-macOS.log
+
+      - # Generate Coverage Data
+        name: Generate code coverage reports
+        run: |
+          PROFDATA_PATH=$(find /tmp/DerivedData -name "*.profdata")
+          echo "Detected profdata at path: $PROFDATA_PATH"
           xcrun llvm-cov export \
-            .build/debug/RainbowPackageTests.xctest/Contents/MacOS/RainbowPackageTests \
-            -instr-profile .build/debug/codecov/default.profdata \
-            --format="lcov" \
-            --ignore-filename-regex "\\.build" \
-            --ignore-filename-regex "Tests" > info.lcov
-      - name: Upload Code Coverage
+            /tmp/DerivedData/Build/Products/Debug/RainbowTests.xctest/Contents/MacOS/RainbowTests \
+            --instr-profile $PROFDATA_PATH \
+            --format="lcov" > RainbowTests.coverage.lcov
+          xcrun llvm-cov export \
+            /tmp/DerivedData/Build/Products/Debug/RainbowSwiftUITests.xctest/Contents/MacOS/RainbowSwiftUITests \
+            --instr-profile $PROFDATA_PATH \
+            --format="lcov" > RainbowSwiftUITests.coverage.lcov
+
+      - # Codecov Coverage
+        name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3.1.1
+        with:
+          fail_ci_if_error: true
+          files: ./RainbowTests.coverage.lcov,./RainbowSwiftUITests.coverage.lcov
+          flags: macOS
+          xcode_archive_path: test_output.xcresults
+
+  run-ios:
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v4
+      - # Setup testing
+        name: Enable development dependencies
         run: |
-          bash <(curl -s https://codecov.io/bash) \
-            -J 'Rainbow' \
-            -G info.lcov
+          sed -i.bak "s/\/\/dev//g" Package.swift
+
+      - # Install dependencies
+        run: brew install xcbeautify
+
+      # - # Run Tests iOS
+      #   name: Run Tests iOS
+      #   run: |
+      #     set -o pipefail && \
+      #     env NSUnbufferedIO=YES \
+      #     xcodebuild -workspace . \
+      #       -scheme "Rainbow" \
+      #       -sdk iphonesimulator \
+      #       -destination "platform=iOS,OS=17.2,name=iPhone 15 Pro" \
+      #       CODE_SIGNING_ALLOWED="NO" \
+      #       build test 2>&1 | tee test-iOS.log | xcbeautify
+
+      # - name: Upload test log file on error
+      #   uses: actions/upload-artifact@v4
+      #   if: failure()
+      #   with:
+      #     name: test-iOS.log
+      #     path: test-iOS.log
+
+      # - # Generate Coverage Data
+      #   name: Generate code coverage reports
+      #   run: |
+      #     PROFDATA_PATH=$(find /tmp/DerivedData -name "*.profdata")
+      #     echo "Detected profdata at path: $PROFDATA_PATH"
+      #     xcrun llvm-cov export \
+      #       /tmp/DerivedData/Build/Products/Debug-iphonesimulator/RainbowTests.xctest/RainbowTests \
+      #       --instr-profile $PROFDATA_PATH \
+      #       --format="lcov" > RainbowTests.coverage.lcov
+      #     xcrun llvm-cov export \
+      #       /tmp/DerivedData/Build/Products/Debug-iphonesimulator/RainbowSwiftUITests.xctest/RainbowSwiftUITests \
+      #       --instr-profile $PROFDATA_PATH \
+      #       --format="lcov" > RainbowSwiftUITests.coverage.lcov
+
+      # - # Codecov Coverage
+      #   name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v3.1.1
+      #   with:
+      #     fail_ci_if_error: true
+      #     files: ./RainbowTests.coverage.lcov,./RainbowSwiftUITests.coverage.lcov
+      #     flags: iOS
+      #     xcode_archive_path: test_output.xcresults
 
   swiftlint:
     runs-on: ubuntu-latest
