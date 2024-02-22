@@ -85,8 +85,6 @@ jobs:
             -scheme "Rainbow" \
             -sdk iphonesimulator \
             -destination "platform=iOS,OS=17.2,name=iPhone 15 Pro" \
-            -derivedDataPath /tmp/DerivedData \
-            -resultBundlePath test_output \
             CODE_SIGNING_ALLOWED="NO" \
             build test 2>&1 | tee test-iOS.log | xcbeautify
 
