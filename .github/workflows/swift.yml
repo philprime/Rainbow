@@ -85,7 +85,6 @@ jobs:
             -scheme "Rainbow" \
             -sdk iphonesimulator \
             -destination "platform=iOS,OS=17.2,name=iPhone 15 Pro" \
-            -enableCodeCoverage YES \
             -derivedDataPath /tmp/DerivedData \
             -resultBundlePath test_output \
             CODE_SIGNING_ALLOWED="NO" \
@@ -98,28 +97,28 @@ jobs:
           name: test-iOS.log
           path: test-iOS.log
 
-      - # Generate Coverage Data
-        name: Generate code coverage reports
-        run: |
-          PROFDATA_PATH=$(find /tmp/DerivedData -name "*.profdata")
-          echo "Detected profdata at path: $PROFDATA_PATH"
-          xcrun llvm-cov export \
-            /tmp/DerivedData/Build/Products/Debug-iphonesimulator/RainbowTests.xctest/RainbowTests \
-            --instr-profile $PROFDATA_PATH \
-            --format="lcov" > RainbowTests.coverage.lcov
-          xcrun llvm-cov export \
-            /tmp/DerivedData/Build/Products/Debug-iphonesimulator/RainbowSwiftUITests.xctest/RainbowSwiftUITests \
-            --instr-profile $PROFDATA_PATH \
-            --format="lcov" > RainbowSwiftUITests.coverage.lcov
+      # - # Generate Coverage Data
+      #   name: Generate code coverage reports
+      #   run: |
+      #     PROFDATA_PATH=$(find /tmp/DerivedData -name "*.profdata")
+      #     echo "Detected profdata at path: $PROFDATA_PATH"
+      #     xcrun llvm-cov export \
+      #       /tmp/DerivedData/Build/Products/Debug-iphonesimulator/RainbowTests.xctest/RainbowTests \
+      #       --instr-profile $PROFDATA_PATH \
+      #       --format="lcov" > RainbowTests.coverage.lcov
+      #     xcrun llvm-cov export \
+      #       /tmp/DerivedData/Build/Products/Debug-iphonesimulator/RainbowSwiftUITests.xctest/RainbowSwiftUITests \
+      #       --instr-profile $PROFDATA_PATH \
+      #       --format="lcov" > RainbowSwiftUITests.coverage.lcov
 
-      - # Codecov Coverage
-        name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3.1.1
-        with:
-          fail_ci_if_error: true
-          files: ./RainbowTests.coverage.lcov,./RainbowSwiftUITests.coverage.lcov
-          flags: iOS
-          xcode_archive_path: test_output.xcresults
+      # - # Codecov Coverage
+      #   name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v3.1.1
+      #   with:
+      #     fail_ci_if_error: true
+      #     files: ./RainbowTests.coverage.lcov,./RainbowSwiftUITests.coverage.lcov
+      #     flags: iOS
+      #     xcode_archive_path: test_output.xcresults
 
   swiftlint:
     runs-on: ubuntu-latest
