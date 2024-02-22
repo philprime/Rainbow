@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 @available(macOS 10.15, *)
 public extension Color {
@@ -9,7 +10,10 @@ public extension Color {
     /// - Returns: Luminance ("brightness") of color
     @available(macOS 11.0, iOS 14.0, *)
     func luminance() -> CGFloat {
-        guard let components = cgColor?.components, !components.isEmpty else {
+        // SwiftUI is handling named colors differently, and the property `cgColor` is not always set.
+        // Therefore, the SwiftUI.Color is converted to UIKit.UIColor
+        let components = UIColor(self).cgColor.components ?? []
+        guard !components.isEmpty else {
             return 0
         }
         guard components.count >= 3 else {
