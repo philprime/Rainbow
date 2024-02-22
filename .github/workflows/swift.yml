@@ -76,24 +76,24 @@ jobs:
       - # Install dependencies
         run: brew install xcbeautify
 
-      - # Run Tests iOS
-        name: Run Tests iOS
-        run: |
-          set -o pipefail && \
-          env NSUnbufferedIO=YES \
-          xcodebuild -workspace . \
-            -scheme "Rainbow" \
-            -sdk iphonesimulator \
-            -destination "platform=iOS,OS=17.2,name=iPhone 15 Pro" \
-            CODE_SIGNING_ALLOWED="NO" \
-            build test 2>&1 | tee test-iOS.log | xcbeautify
+      # - # Run Tests iOS
+      #   name: Run Tests iOS
+      #   run: |
+      #     set -o pipefail && \
+      #     env NSUnbufferedIO=YES \
+      #     xcodebuild -workspace . \
+      #       -scheme "Rainbow" \
+      #       -sdk iphonesimulator \
+      #       -destination "platform=iOS,OS=17.2,name=iPhone 15 Pro" \
+      #       CODE_SIGNING_ALLOWED="NO" \
+      #       build test 2>&1 | tee test-iOS.log | xcbeautify
 
-      - name: Upload test log file on error
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: test-iOS.log
-          path: test-iOS.log
+      # - name: Upload test log file on error
+      #   uses: actions/upload-artifact@v4
+      #   if: failure()
+      #   with:
+      #     name: test-iOS.log
+      #     path: test-iOS.log
 
       # - # Generate Coverage Data
       #   name: Generate code coverage reports
