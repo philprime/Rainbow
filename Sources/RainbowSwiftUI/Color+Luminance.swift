@@ -1,5 +1,9 @@
 import SwiftUI
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
 import UIKit
+#endif
 
 @available(macOS 10.15, *)
 public extension Color {
@@ -11,8 +15,12 @@ public extension Color {
     @available(macOS 11.0, iOS 14.0, *)
     func luminance() -> CGFloat {
         // SwiftUI is handling named colors differently, and the property `cgColor` is not always set.
-        // Therefore, the SwiftUI.Color is converted to UIKit.UIColor
+        // Therefore, the SwiftUI.Color is converted to AppKit.UIColor or UIKit.UIColor
+        #if canImport(AppKit)
+        let components = NSColor(self).cgColor.components ?? []
+        #elseif canImport(UIKit)
         let components = UIColor(self).cgColor.components ?? []
+        #endif
         guard !components.isEmpty else {
             return 0
         }

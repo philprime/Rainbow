@@ -2,14 +2,15 @@ import SwiftUI
 import XCTest
 @testable import RainbowSwiftUI
 
+@available(iOS 15.0, *)
 @available(macOS 12.0, *)
 class Color_LuminanceTests: XCTestCase {
 
-    func testLuminance_dynamicColor_shouldNotReturnLuminance() {
+    func testLuminance_dynamicColor_shouldReturnLuminance() {
         // Act
         let luminance = Color("luminance-test-color", bundle: Bundle.module)
         // Assert
-        XCTAssertEqual(luminance.luminance(), 0)
+        XCTAssertEqual(luminance.luminance(), 0.704, accuracy: 0.01)
     }
 
     func testLuminance_grayscaleColor_shouldReturnLuminance() {
