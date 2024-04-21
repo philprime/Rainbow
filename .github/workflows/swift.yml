@@ -65,7 +65,7 @@ jobs:
           xcode_archive_path: test_output.xcresults
 
   run-ios:
-    runs-on: macos-13
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
       - # Setup testing
