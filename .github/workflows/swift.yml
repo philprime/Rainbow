@@ -57,7 +57,7 @@ jobs:
 
       - # Codecov Coverage
         name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3.1.6
+        uses: codecov/codecov-action@v4.6.0
         with:
           fail_ci_if_error: true
           files: ./RainbowTests.coverage.lcov,./RainbowSwiftUITests.coverage.lcov
