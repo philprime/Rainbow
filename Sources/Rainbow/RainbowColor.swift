@@ -6,7 +6,7 @@
 //  Copyright © 2023 Philip Niedertscheider<opensource@philprime.dev>. All rights reserved.
 //
 
-#if os(iOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
 import UIKit
 
 /// On iOS the used implementation is `UIColor` from UIKit

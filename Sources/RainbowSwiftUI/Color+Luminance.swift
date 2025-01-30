@@ -8,7 +8,7 @@ public extension Color {
     /// Formula: `0.299 * R + 0.687 * G + 0.114 * B`
     ///
     /// - Returns: Luminance ("brightness") of color
-    @available(macOS 11.0, iOS 14.0, *)
+    @available(macOS 11.0, iOS 14.0, tvOS 14.0, *)
     func luminance() -> CGFloat {
         RainbowColor(self).luminance()
     }

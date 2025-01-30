@@ -50,6 +50,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var systemFill: Color {
         #if canImport(UIKit)
         return Color(UIColor.systemFill)
@@ -58,6 +60,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var secondarySystemFill: Color {
         #if canImport(UIKit)
         return Color(UIColor.secondarySystemFill)
@@ -66,6 +70,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var tertiarySystemFill: Color {
         #if canImport(UIKit)
         return Color(UIColor.tertiarySystemFill)
@@ -74,6 +80,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var quaternarySystemFill: Color {
         #if canImport(UIKit)
         return Color(UIColor.quaternarySystemFill)
@@ -82,6 +90,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var systemBackground: Color {
         #if canImport(UIKit)
         return Color(UIColor.systemBackground)
@@ -90,6 +100,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var secondarySystemBackground: Color {
         #if canImport(UIKit)
         return Color(UIColor.secondarySystemBackground)
@@ -98,6 +110,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var tertiarySystemBackground: Color {
         #if canImport(UIKit)
         return Color(UIColor.tertiarySystemBackground)
@@ -106,6 +120,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var systemGroupedBackground: Color {
         #if canImport(UIKit)
         return Color(UIColor.systemGroupedBackground)
@@ -114,6 +130,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var secondarySystemGroupedBackground: Color {
         #if canImport(UIKit)
         return Color(UIColor.secondarySystemGroupedBackground)
@@ -122,6 +140,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var tertiarySystemGroupedBackground: Color {
         #if canImport(UIKit)
         return Color(UIColor.tertiarySystemGroupedBackground)
@@ -210,6 +230,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var systemGray2: Color {
         #if canImport(UIKit)
         return Color(UIColor.systemGray2)
@@ -218,6 +240,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var systemGray3: Color {
         #if canImport(UIKit)
         return Color(UIColor.systemGray3)
@@ -226,6 +250,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var systemGray4: Color {
         #if canImport(UIKit)
         return Color(UIColor.systemGray4)
@@ -234,6 +260,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var systemGray5: Color {
         #if canImport(UIKit)
         return Color(UIColor.systemGray5)
@@ -242,6 +270,8 @@ extension Color {
         #endif
     }
 
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public static var systemGray6: Color {
         #if canImport(UIKit)
         return Color(UIColor.systemGray6)
