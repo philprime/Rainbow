@@ -2,8 +2,8 @@
 //  RainbowColorParsingUtils.swift
 //  Rainbow
 //
-//  Created by Philip Niedertscheider on 27.07.2023.
-//  Copyright © 2023 Philip Niedertscheider<opensource@philprime.dev>. All rights reserved.
+//  Created by Philip Niedertscheider on 27.07.2025.
+//  Copyright © 2025 Philip Niedertscheider <opensource@philprime.dev>. All rights reserved.
 //
 
 import CoreGraphics
