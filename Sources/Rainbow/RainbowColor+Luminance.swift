@@ -8,13 +8,13 @@
 
 import CoreGraphics
 
-public extension RainbowColor {
+extension RainbowColor {
     /// Calculates the luminance based on the RGB components of the color
     ///
     /// Formula: `0.299 * R + 0.687 * G + 0.114 * B`
     ///
     /// - Returns: Luminance ("brightness") of color
-    func luminance() -> CGFloat {
+    public func luminance() -> CGFloat {
         guard let components = cgColor.components, !components.isEmpty else {
             return 0
         }

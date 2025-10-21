@@ -6,4 +6,4 @@
 
 Simple cross-platform color handling.
 
-* [Documentation](https://philprime.github.io/Rainbow/)
+- [Documentation](https://philprime.github.io/Rainbow/)

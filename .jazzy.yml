@@ -2,7 +2,7 @@ module: Rainbow
 
 author: Philip Niedertscheider
 author_url: https://github.com/philprime
-copyright: '© 2025 [Philip Niedertscheider](https://philprime.dev). All rights reserved.'
+copyright: "© 2025 [Philip Niedertscheider](https://philprime.dev). All rights reserved."
 github_url: https://github.com/philprime/Rainbow
 
 theme: fullwidth
@@ -12,4 +12,3 @@ use_safe_filenames: true
 
 swift_build_tool: spm
 include: Sources/Rainbow/**
-

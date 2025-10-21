@@ -7,13 +7,13 @@
 //
 
 #if os(iOS)
-import UIKit
+    import UIKit
 
-/// On iOS the used implementation is `UIColor` from UIKit
-public typealias RainbowColor = UIColor
+    /// On iOS the used implementation is `UIColor` from UIKit
+    public typealias RainbowColor = UIColor
 #elseif os(macOS)
-import AppKit
+    import AppKit
 
-/// On macos the used implementation is `NSColor` from AppKit
-public typealias RainbowColor = NSColor
+    /// On macos the used implementation is `NSColor` from AppKit
+    public typealias RainbowColor = NSColor
 #endif

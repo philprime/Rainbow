@@ -10,7 +10,7 @@ import CoreGraphics
 import Foundation
 
 /// Add heaxdecimal initialisation to `RainbowColor`
-public extension RainbowColor {
+extension RainbowColor {
     /// Parses the given 64 bits number, supporting 3, 4, 6 and 8 hexadecimal numbers.
     ///
     /// Supported formats:
@@ -22,7 +22,7 @@ public extension RainbowColor {
     /// If the given value is greater than `0xFFFFFFFF`, `nil` is returned
     ///
     /// - Parameter hex: Alphanumeric RGBA color
-    convenience init?(hex: UInt64) {
+    public convenience init?(hex: UInt64) {
         var raw: RawColor
 
         if hex <= 0xFFF {
@@ -53,7 +53,7 @@ public extension RainbowColor {
     /// If none of the formats fit, or the string contains an invalid character, `nil` is returned.
     ///
     /// - Parameter hex: Alphanumeric RGBA color string
-    convenience init?(hex: String) {
+    public convenience init?(hex: String) {
         let hexString = hex.starts(with: "#") ? String(hex.dropFirst()) : hex
 
         let scanner = Scanner(string: hexString)
@@ -91,7 +91,7 @@ public extension RainbowColor {
     ///
     /// If the color has no alpha component, it will return a 6 letter string with a leading hash-tag, e.g. `#123456`.
     /// If the alpha component is set, it will return a 8 letter string with a leading hash-tag, e.g. `#123456ab`
-    var hex: String {
+    public var hex: String {
         var red: CGFloat = 0
         var green: CGFloat = 0
         var blue: CGFloat = 0
