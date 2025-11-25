@@ -3,14 +3,14 @@
   "extends": ["config:recommended"],
   "keepUpdatedLabel": "renovate:keep-updated",
   "lockFileMaintenance": {
-    "automerge": true,
+    "automerge": false,
     "enabled": true,
     "extends": ["schedule:daily"]
   },
   "packageRules": [
     {
-      "automerge": true,
-      "matchUpdateTypes": ["minor", "patch"]
+      "automerge": false,
+      "matchUpdateTypes": ["major", "minor", "patch", "digest"]
     }
   ],
   "rebaseLabel": "renovate:rebase",
