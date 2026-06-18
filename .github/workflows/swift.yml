@@ -14,7 +14,7 @@ jobs:
   run-macos:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - # Setup testing
         name: Enable development dependencies
         run: |
@@ -67,7 +67,7 @@ jobs:
   run-ios:
     runs-on: macos-13
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - # Setup testing
         name: Enable development dependencies
         run: |
@@ -121,6 +121,6 @@ jobs:
   swiftlint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: SwiftLint
         uses: norio-nomura/action-swiftlint@3.2.1
